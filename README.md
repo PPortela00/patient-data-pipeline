@@ -5,12 +5,20 @@ Este projeto consiste na ingestão e transformação de dados de pacientes a par
 **Estrutura do Projeto**
 
 ├── .env                    # Configurações de acesso à base de dados
+
 ├── patient.csv             # Ficheiro com dados brutos dos pacientes
+
 ├── ingestion.py            # Script para carregar e validar os dados no PostgreSQL
+
 ├── part3_transform.py      # Script para transformar os dados para o formato FHIR
+
 ├── requirements.txt        # Bibliotecas necessárias para executar os scripts
+
 ├── data_assets.yaml        # Documentação das tabelas raw_patient e fhir_patient
+
 ├── README.md               # Este ficheiro
+
+
 
 **Pré-Requisitos**
 
@@ -18,10 +26,14 @@ Este projeto consiste na ingestão e transformação de dados de pacientes a par
 - PostgreSQL instalado e a correr localmente
 - Instalar dependências - Correr comando "pip install -r requirements.txt"
 
+
+
 **Passos**
 
 1. Criação de tabelas - Executar os comandos SQL no PostgreSQL
+   
 SQL Criação de Tabela raw_patient
+
 CREATE TABLE raw_patient (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(100),
@@ -50,6 +62,7 @@ MESTAMP,
 MESTAMP
 
 SQL Criação de Tabela fhir_patient
+
 CREATE TABLE fhir_patient (
     id VARCHAR(255) PRIMARY KEY, -- Unique ID generated fr
 om patient attributes
@@ -64,8 +77,10 @@ nd email
     nationality VARCHAR(20)
 );
 
-1. Ingestão de Dados 
+2. Ingestão de Dados
+   
 Executar comando "python Part2_DataIngestion.py"
 
-2. Transformação de Dados
+3. Transformação de Dados
+   
 Executar comando "python Part3_DataTransformation.py"

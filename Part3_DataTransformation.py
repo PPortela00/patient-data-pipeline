@@ -6,6 +6,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def transform_to_fhir():
+    """
+    Transforma os dados da tabela raw_patient para o formato FHIR e insere na tabela fhir_patient.
+    """
     try:
         # Conexão com o PostgreSQL
         conn = psycopg2.connect(

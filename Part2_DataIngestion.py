@@ -6,10 +6,16 @@ import re
 from dotenv import load_dotenv
 import os
 
+
+# Carrega variáveis de ambiente do ficheiro .env
 load_dotenv()
 
 #Função para validar o formato de e-mails usando regex
 def validate_email(email):
+    """
+    Valida o formato de um e-mail. Se estiver vazio ou nulo, retorna None.
+    Lógica: usa expressão regular básica para verificar se contém "@" e domínio.
+    """
     if pd.isnull(email) or str(email).strip() == "":
         return None
     
@@ -20,10 +26,19 @@ def validate_email(email):
         raise ValueError(f"E-mail inválido detectado: '{email}'")
 
 def parse_date_safe(value):
+    """
+    Converte a string de data para datetime. Retorna None se falhar.
+    """
     return pd.to_datetime(value, errors='coerce') if pd.notna(value) else None
 
 # Função para limpar os dados do DataFrame
 def clean_data(df):
+    """
+    Aplica validações e substituições nos dados:
+    - Converte datas
+    - Remove 'Unknown' de address e blood_type
+    - Valida e-mails
+    """
     df['birth_date'] = df['birth_date'].apply(parse_date_safe)
     df['address'] = df['address'].replace("Unknown", None)
     df['email'] = df['email'].apply(validate_email)
@@ -35,6 +50,9 @@ def clean_data(df):
 
 # Função para inserir os dados limpos na BD
 def insert_data(df):
+    """
+    Insere os dados limpos na BD.
+    """
     try:
         conn = psycopg2.connect(
             host=os.getenv("DB_HOST"),
